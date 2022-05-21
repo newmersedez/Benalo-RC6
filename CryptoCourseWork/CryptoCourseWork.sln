@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RC6", "RC6\RC6.csproj", "{9AD654D4-8EBD-4528-B54B-EFD4825FC13B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benaloh", "Benaloh\Benaloh.csproj", "{18E956A6-0BC1-4B26-9EF9-3B47BAA2C016}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AD654D4-8EBD-4528-B54B-EFD4825FC13B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AD654D4-8EBD-4528-B54B-EFD4825FC13B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AD654D4-8EBD-4528-B54B-EFD4825FC13B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AD654D4-8EBD-4528-B54B-EFD4825FC13B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18E956A6-0BC1-4B26-9EF9-3B47BAA2C016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18E956A6-0BC1-4B26-9EF9-3B47BAA2C016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18E956A6-0BC1-4B26-9EF9-3B47BAA2C016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18E956A6-0BC1-4B26-9EF9-3B47BAA2C016}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
