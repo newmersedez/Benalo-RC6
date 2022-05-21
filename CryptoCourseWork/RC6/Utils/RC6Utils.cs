@@ -6,6 +6,7 @@
         public const uint Q32 = 0x9E3779B9;
         public const int R = 20;
         public const int W = 32;
+        public const int BlockSize = 16;
         
         public static uint RightShift(uint value, int shift)
         {
