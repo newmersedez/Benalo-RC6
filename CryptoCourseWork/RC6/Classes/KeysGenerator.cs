@@ -2,7 +2,7 @@
 
 namespace RC6
 {
-    internal sealed class KeysGenerator : IKeyGen
+    internal sealed class RC6KeysGenerator : IExpandKey
     {
         public uint[] GenerateRoundKeys(byte[] key, uint length)
         {

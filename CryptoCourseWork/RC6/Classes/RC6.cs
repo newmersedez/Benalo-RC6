@@ -5,7 +5,7 @@ namespace RC6
 {
     public sealed class RC6: ICrypto
     {
-        private readonly IKeyGen _keygen;
+        private readonly IExpandKey _keygen;
         private byte[] _key;
         private uint _length;
         private uint[] _roundKeys;
@@ -15,7 +15,7 @@ namespace RC6
             if (length != 128 && length != 192 && length != 256)
                 throw new ArgumentException(null, nameof(length));
             
-            _keygen = new KeysGenerator();
+            _keygen = new RC6KeysGenerator();
             _key = key;
             _roundKeys = _keygen.GenerateRoundKeys(_key, length);
         }
