@@ -3,9 +3,9 @@ using System.Text;
 
 namespace RC6
 {
-    public static class Program
+    internal static class Program
     {
-        private static void Main()
+        public static void Main()
         {
             /* 128 */
             var key1 = new byte[] {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};

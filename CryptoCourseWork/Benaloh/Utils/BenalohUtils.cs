@@ -72,12 +72,13 @@ namespace Benaloh
         {
             var rndGenerator = RandomNumberGenerator.Create();
             var bytes = right.ToByteArray();
+            //TODO: старший и младший бит поставить в 1
             BigInteger r;
             do
             {
                 rndGenerator.GetBytes(bytes);
                 r = new BigInteger(bytes);
-            } while (!(r >= left && r <= right));
+            } while (!(r >= left && r < right));
 
             return r;
         }
