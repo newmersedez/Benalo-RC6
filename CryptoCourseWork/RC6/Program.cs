@@ -19,7 +19,6 @@ namespace RC6
             var decrypted = crypto.Decrypt(encrypted);
             
             Console.WriteLine("Default = {0}", text);
-            Console.WriteLine("Encrypt = {0}", Encoding.UTF8.GetString(encrypted));
             Console.WriteLine("Decrypt = {0}", Encoding.UTF8.GetString(decrypted));
         }
     }

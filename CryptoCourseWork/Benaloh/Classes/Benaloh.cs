@@ -4,28 +4,24 @@ using Benaloh.RSA.Classes;
 
 namespace Benaloh
 {
-    public enum PrimalityTestMode
+    public sealed class Benaloh : ICrypto
     {
-        Fermat,
-        SolovayStrassen,
-        MillerRabin
-    }
-    
-    public sealed class Benaloh
-    {
-        private Keys _keys;
-        private BigInteger u, a;
-        
-        private struct Keys
+        private sealed class KeysGenerator : IKeysGenerator
         {
-            public BigInteger n;        // n = p * q
-            public BigInteger y, r;     // public key
-            public BigInteger phi, x;   // private key
+            public Keys GenerateKeys(BigInteger message)
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        private sealed class BenalohKeysGenerator
+        public BigInteger Encrypt(BigInteger message)
         {
-            
+            throw new NotImplementedException();
+        }
+
+        public BigInteger Decrypt(BigInteger message)
+        {
+            throw new NotImplementedException();
         }
     }
 }

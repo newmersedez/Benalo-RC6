@@ -1,6 +1,6 @@
 ﻿namespace RC6
 {
-    public interface IExpandKey
+    internal interface IKeysGenerator
     {
         public uint[] GenerateRoundKeys(byte[] key, uint length);
     }
