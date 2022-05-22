@@ -1,4 +1,6 @@
-﻿namespace RC6
+﻿using System;
+
+namespace RC6
 {
     internal static class RC6Utils
     {
@@ -12,6 +14,7 @@
         {
             return (value >> shift) | (value << (W - shift));
         }
+        
         public static uint LeftShift(uint value, int shift)
         {
             return (value << shift) | (value >> (W - shift));

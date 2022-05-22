@@ -1,26 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace RC6
 {
     public sealed class RC6: ICrypto
     {
-        private readonly IExpandKey _keygen;
-        private byte[] _key;
-        private uint _length;
-        private uint[] _roundKeys;
+        private readonly uint[] _roundKeys;
 
         public RC6(byte[] key, uint length)
         {
+            if (key.Length * RC6Utils.BlockSize != length)
+                throw new ArgumentException(null, nameof(key));
             if (length != 128 && length != 192 && length != 256)
                 throw new ArgumentException(null, nameof(length));
-            
-            _keygen = new RC6KeysGenerator();
-            _key = key;
-            _roundKeys = _keygen.GenerateRoundKeys(_key, length);
+
+            IExpandKey keygen = new RC6KeysGenerator();
+            _roundKeys = keygen.GenerateRoundKeys(key, length);
         }
 
-        private static byte[] ToArrayBytes(IReadOnlyList<uint> uints, int length)
+        private static byte[] ToArrayBytes(uint[] uints, int length)
         {
             var arrayBytes = new byte[length * 4];
             for (var i = 0; i < length; ++i)
@@ -99,13 +96,6 @@ namespace RC6
                 returnBlock.CopyTo(plainText, i);
             }
             return plainText;
-        }
-
-        public void GetRoundKeys(byte[] key, uint length)
-        {
-            _key = key;
-            _length = length;
-            _roundKeys = _keygen.GenerateRoundKeys(_key, _length);
         }
     }
 }
