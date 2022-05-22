@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 
 namespace RC6
@@ -19,14 +20,14 @@ namespace RC6
     public sealed class CipherContext
     {
         public ICrypto Encrypter;
+        public byte[] InitializationVector;
         private readonly EncryptionMode _mode;
-        private byte[] _initializationVector;
         private readonly string _param;
         
         public CipherContext(EncryptionMode mode, byte[] vector = null, string param = null)
         {
             _mode = mode;
-            _initializationVector = vector;
+            InitializationVector = vector;
             _param = param;
         }
         
@@ -82,7 +83,7 @@ namespace RC6
                 {
                     var prevBlock = new byte[RC6Utils.BlockSize];
                     var currBlock = new byte[RC6Utils.BlockSize];
-                    Array.Copy(_initializationVector, prevBlock, prevBlock.Length);
+                    Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
                     for (var i = 0; i < paddedBlock.Length / RC6Utils.BlockSize; ++i)
                     {
                         Array.Copy(paddedBlock, i * RC6Utils.BlockSize, currBlock, 
@@ -97,7 +98,7 @@ namespace RC6
                 {
                     var prevBlock = new byte[RC6Utils.BlockSize];
                     var currBlock = new byte[RC6Utils.BlockSize];
-                    Array.Copy(_initializationVector, prevBlock, prevBlock.Length);
+                    Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
                     for (var i = 0; i < paddedBlock.Length / RC6Utils.BlockSize; ++i)
                     {
                         Array.Copy(paddedBlock, i * RC6Utils.BlockSize, currBlock,
@@ -112,7 +113,7 @@ namespace RC6
                 {
                     var prevBlock = new byte[RC6Utils.BlockSize];
                     var currBlock = new byte[RC6Utils.BlockSize];
-                    Array.Copy(_initializationVector, prevBlock, prevBlock.Length);
+                    Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
                     for (var i = 0; i < paddedBlock.Length / RC6Utils.BlockSize; ++i)
                     {
                         Array.Copy(paddedBlock, i * RC6Utils.BlockSize, currBlock, 
@@ -126,9 +127,9 @@ namespace RC6
                 
                 case EncryptionMode.CTR:
                 {
-                    var copyIV = new byte[RC6Utils.BlockSize];
-                    _initializationVector.CopyTo(copyIV, 0);
-                    var counter = BitConverter.ToUInt64(copyIV);
+                    var copyIV = new byte[InitializationVector.Length];
+                    InitializationVector.CopyTo(copyIV, 0);
+                    var counter = new BigInteger(copyIV);
                     var currBlock = new byte[RC6Utils.BlockSize];
                     for (var i = 0; i < paddedBlock.Length / RC6Utils.BlockSize; ++i)
                     {
@@ -136,7 +137,7 @@ namespace RC6
                             0, RC6Utils.BlockSize);
                         encryptedBlocksList.Add(Xor(Encrypter.Encrypt(copyIV), currBlock));
                         counter++;
-                        copyIV = BitConverter.GetBytes(counter);
+                        copyIV = counter.ToByteArray();
                     }
                     break;
                 }
@@ -144,11 +145,11 @@ namespace RC6
                 case EncryptionMode.RD:
                 {
                     var currBlock = new byte[RC6Utils.BlockSize];
-                    var copyIV = new byte[RC6Utils.BlockSize];
-                    Array.Copy(_initializationVector, 0, copyIV, 
+                    var copyIV = new byte[InitializationVector.Length];
+                    Array.Copy(InitializationVector, 0, copyIV, 
                         0, RC6Utils.BlockSize);
-                    var IV = BitConverter.ToUInt64(copyIV);
-                    var delta = BitConverter.ToUInt64(_initializationVector);
+                    var IV =  new BigInteger(copyIV);
+                    var delta = new BigInteger(InitializationVector);
                     encryptedBlocksList.Add(Encrypter.Encrypt(copyIV));
                     for (var i = 0; i < paddedBlock.Length / RC6Utils.BlockSize; ++i)
                     {
@@ -156,7 +157,7 @@ namespace RC6
                             0, RC6Utils.BlockSize);
                         encryptedBlocksList.Add(Encrypter.Encrypt(Xor(copyIV, currBlock)));
                         IV += delta;
-                        copyIV = BitConverter.GetBytes(IV);
+                        copyIV = IV.ToByteArray();
                     }
                     break;
                 }
@@ -164,17 +165,17 @@ namespace RC6
                 case EncryptionMode.RDH:
                 {
                     var currBlock = new byte[RC6Utils.BlockSize];
-                    var copyIV = new byte[RC6Utils.BlockSize];
-                    Array.Copy(_initializationVector, 0, copyIV, 
+                    var copyIV = new byte[InitializationVector.Length];
+                    Array.Copy(InitializationVector, 0, copyIV, 
                         0, RC6Utils.BlockSize);
-                    var IV = BitConverter.ToUInt64(copyIV);
-                    var delta = BitConverter.ToUInt64(_initializationVector);
+                    var IV = new BigInteger(copyIV);
+                    var delta = new BigInteger(InitializationVector);
                     encryptedBlocksList.Add(Encrypter.Encrypt(copyIV));
                     encryptedBlocksList.Add(Xor(copyIV, PaddingPkcs7(BitConverter.GetBytes(_param.GetHashCode()))));
                     for (var i = 0; i < paddedBlock.Length / RC6Utils.BlockSize; ++i)
                     {
                         IV += delta;
-                        copyIV = BitConverter.GetBytes(IV);
+                        copyIV = IV.ToByteArray();
                         Array.Copy(paddedBlock, i * RC6Utils.BlockSize, currBlock, 
                             0, RC6Utils.BlockSize);
                         encryptedBlocksList.Add(Encrypter.Encrypt(Xor(copyIV, currBlock)));
@@ -209,7 +210,7 @@ namespace RC6
                 {
                     var prevBlock = new byte[RC6Utils.BlockSize];
                     var currBlock = new byte[RC6Utils.BlockSize];
-                    Array.Copy(_initializationVector, prevBlock, prevBlock.Length);
+                    Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
                     for (var i = 0; i < block.Length / RC6Utils.BlockSize; ++i)
                     {
                         Array.Copy(block, i * RC6Utils.BlockSize, currBlock, 
@@ -224,7 +225,7 @@ namespace RC6
                 {
                     var prevBlock = new byte[RC6Utils.BlockSize];
                     var currBlock = new byte[RC6Utils.BlockSize];
-                    Array.Copy(_initializationVector, prevBlock, prevBlock.Length);
+                    Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
                     for (var i = 0; i < block.Length / RC6Utils.BlockSize; ++i)
                     {
                         Array.Copy(block, i * RC6Utils.BlockSize, currBlock, 
@@ -239,7 +240,7 @@ namespace RC6
                 {
                     var prevBlock = new byte[RC6Utils.BlockSize];
                     var curBlock = new byte[RC6Utils.BlockSize];
-                    Array.Copy(_initializationVector, prevBlock, prevBlock.Length);
+                    Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
                     for (var i = 0; i < block.Length / RC6Utils.BlockSize; ++i)
                     {
                         Array.Copy(block, i * RC6Utils.BlockSize, curBlock, 
@@ -253,15 +254,15 @@ namespace RC6
                 
                 case EncryptionMode.CTR:
                 {
-                    var counter = BitConverter.ToUInt64(_initializationVector);
+                    var counter = new BigInteger(InitializationVector);
                     var currBlock = new byte[RC6Utils.BlockSize];
                     for (var i = 0; i < block.Length / RC6Utils.BlockSize; ++i)
                     {
                         Array.Copy(block, i * RC6Utils.BlockSize, currBlock, 
                             0, RC6Utils.BlockSize);
-                        decryptedBlocksList.Add(Xor(Encrypter.Encrypt(_initializationVector), currBlock));
+                        decryptedBlocksList.Add(Xor(Encrypter.Encrypt(InitializationVector), currBlock));
                         counter++;
-                        _initializationVector = BitConverter.GetBytes(counter);
+                        InitializationVector = counter.ToByteArray();
                     }
                     break;
                 }
@@ -269,19 +270,19 @@ namespace RC6
                 case EncryptionMode.RD:
                 {
                     var currBlock = new byte[RC6Utils.BlockSize];
-                    var copyIV = new byte[RC6Utils.BlockSize];
-                    var delta = BitConverter.ToUInt64(_initializationVector);
+                    var copyIV = new byte[InitializationVector.Length];
+                    var delta = new BigInteger(InitializationVector);
                     Array.Copy(block, 0, currBlock, 
                         0, RC6Utils.BlockSize);
                     copyIV = Encrypter.Decrypt(currBlock);
-                    var IV = BitConverter.ToUInt64(copyIV);
+                    var IV = new BigInteger(copyIV);
                     for (var i = 1; i < block.Length / RC6Utils.BlockSize; ++i)
                     {
                         Array.Copy(block, i * RC6Utils.BlockSize, currBlock, 
                             0, RC6Utils.BlockSize);
                         decryptedBlocksList.Add(Xor(Encrypter.Decrypt(currBlock), copyIV));
                         IV += delta;
-                        copyIV = BitConverter.GetBytes(IV);
+                        copyIV = IV.ToByteArray();
                     }
                     break;
                 }
@@ -289,11 +290,11 @@ namespace RC6
                 case EncryptionMode.RDH:
                 {
                     var currBlock = new byte[RC6Utils.BlockSize];
-                    var copyIV = new byte[RC6Utils.BlockSize];
-                    var delta = BitConverter.ToUInt64(_initializationVector);
+                    var copyIV = new byte[InitializationVector.Length];
+                    var delta = new BigInteger(InitializationVector);
                     Array.Copy(block, 0, currBlock, 0, RC6Utils.BlockSize);
                     copyIV = Encrypter.Decrypt(currBlock);
-                    var IV = BitConverter.ToUInt64(copyIV);
+                    var IV = new BigInteger(copyIV);
                     Array.Copy(block, RC6Utils.BlockSize, currBlock, 
                         0, RC6Utils.BlockSize);
                     if (!Xor(copyIV, PaddingPkcs7(BitConverter.GetBytes(_param.GetHashCode()))).SequenceEqual(currBlock))
@@ -302,7 +303,7 @@ namespace RC6
                     for (int i = 2; i < block.Length / RC6Utils.BlockSize; i++)
                     {
                         IV += delta;
-                        copyIV = BitConverter.GetBytes(IV);
+                        copyIV = IV.ToByteArray();
                         Array.Copy(block, i * RC6Utils.BlockSize, currBlock, 
                             0, RC6Utils.BlockSize);
                         decryptedBlocksList.Add(Xor(Encrypter.Decrypt(currBlock), copyIV));
