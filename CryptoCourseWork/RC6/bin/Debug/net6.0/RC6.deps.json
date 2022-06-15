@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "RC6/1.0.0": {
+        "dependencies": {
+          "Benaloh": "1.0.0"
+        },
+        "runtime": {
+          "RC6.dll": {}
+        }
+      },
+      "Benaloh/1.0.0": {
+        "runtime": {
+          "Benaloh.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RC6/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Benaloh/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

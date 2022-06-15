@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Numerics;
 using System.Text;
+using Benaloh;
+using RC6.Messanger;
 
 namespace RC6
 {
@@ -7,19 +10,35 @@ namespace RC6
     {
         public static void Main()
         {
-            /* 128 */
-            var key1 = new byte[] {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-            byte[] initializationVector1 = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-            var crypto = new CipherContext(EncryptionMode.ECB, initializationVector1, "kekw");
-            crypto.Encrypter = new RC6(key1, 128);
-
-            const string text = "lalkalklaklaklaklakalkalkalaklaklakalkalklk1414241241241242141242142142";
-            var byteText =  Encoding.ASCII.GetBytes(text);
-            var encrypted = crypto.Encrypt(byteText);
-            var decrypted = crypto.Decrypt(encrypted);
+            // const uint length = 128;
+            // var initVector = Messanger.RC6Utils.GenerateInitializationVector(length);
+            // var key = Messanger.RC6Utils.GenerateKey(length);
+            // IBaseDecorator algorithm = new RC6Decorator(EncryptionMode.ECB, initVector, "", key, length);
+            //
+            // while (true)
+            // {
+            //     Console.WriteLine("Enter message: ");
+            //     var message = Console.ReadLine();
+            //     var encryptedMessage = algorithm.Encrypt(message);
+            //     var decryptedMessage = algorithm.Decrypt(encryptedMessage);
+            //     Console.WriteLine($"Default = {message}");
+            //     Console.WriteLine($"Encrypted = {encryptedMessage}");
+            //     Console.WriteLine($"Decrypted = {decryptedMessage}");
+            // }
             
-            Console.WriteLine("Default = {0}", text);
-            Console.WriteLine("Decrypt = {0}", Encoding.UTF8.GetString(decrypted));
+            var key = new byte[] { 1, 1, 1, 1};
+            var mode = PrimalityTestMode.Fermat;
+            var message = new BigInteger(key);
+            var minProbability = 0.5;
+            var length = (ulong)message.GetByteCount() + 1;
+            var keyAlgorithm = new Benaloh.Benaloh(message, mode, minProbability, length);
+
+            
+            var encrypted = keyAlgorithm.Encrypt(new BigInteger(key));
+            var decrypted = keyAlgorithm.Decrypt(encrypted);
+            
+            Console.WriteLine($"Before = {new BigInteger(key)}");
+            Console.WriteLine($"After = {decrypted}");
         }
     }
 }

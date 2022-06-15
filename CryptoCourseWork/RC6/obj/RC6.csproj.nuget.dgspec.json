@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "D:\\3 курс 6 семестр\\CryptoCourseWork\\CryptoCourseWork\\RC6\\RC6.csproj": {}
+    "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\RC6\\RC6.csproj": {}
   },
   "projects": {
-    "D:\\3 курс 6 семестр\\CryptoCourseWork\\CryptoCourseWork\\RC6\\RC6.csproj": {
+    "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\Benaloh\\Benaloh.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\3 курс 6 семестр\\CryptoCourseWork\\CryptoCourseWork\\RC6\\RC6.csproj",
-        "projectName": "RC6",
-        "projectPath": "D:\\3 курс 6 семестр\\CryptoCourseWork\\CryptoCourseWork\\RC6\\RC6.csproj",
-        "packagesPath": "C:\\Users\\Дмитрий\\.nuget\\packages\\",
-        "outputPath": "D:\\3 курс 6 семестр\\CryptoCourseWork\\CryptoCourseWork\\RC6\\obj\\",
+        "projectUniqueName": "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\Benaloh\\Benaloh.csproj",
+        "projectName": "Benaloh",
+        "projectPath": "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\Benaloh\\Benaloh.csproj",
+        "packagesPath": "C:\\Users\\newmersedez\\.nuget\\packages\\",
+        "outputPath": "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\Benaloh\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Дмитрий\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\newmersedez\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -37,8 +37,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "imports": [
             "net461",
             "net462",
@@ -54,7 +54,65 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\RC6\\RC6.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\RC6\\RC6.csproj",
+        "projectName": "RC6",
+        "projectPath": "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\RC6\\RC6.csproj",
+        "packagesPath": "C:\\Users\\newmersedez\\.nuget\\packages\\",
+        "outputPath": "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\RC6\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\newmersedez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\Benaloh\\Benaloh.csproj": {
+                "projectPath": "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\Benaloh\\Benaloh.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

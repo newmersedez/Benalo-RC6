@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fooUAM8WKFiNBk/PiQlY3lb9C7ulnnVJN9G8xKsiuMg9gIvK4Ev7yeccOwAADKmibkBFUw3uSs7owNfaF4Z4pA==",
+  "dgSpecHash": "KGcYpqocPr70dbfNj6fyKmqVPSIS9iQw9dibr6j31pFzZzNrHL1DedPBMS42rbDe37SKGv1g+DNHq/Fs++BP7Q==",
   "success": true,
-  "projectFilePath": "D:\\3 курс 6 семестр\\CryptoCourseWork\\CryptoCourseWork\\Benaloh\\Benaloh.csproj",
+  "projectFilePath": "D:\\3 курс 6 семестр\\Benaloh-RC6\\CryptoCourseWork\\Benaloh\\Benaloh.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

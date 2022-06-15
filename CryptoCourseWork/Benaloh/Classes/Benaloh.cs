@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using Benaloh.RSA.Classes;
 
@@ -19,6 +20,7 @@ namespace Benaloh
                 _length = length;
             }
 
+            [SuppressMessage("ReSharper.DPA", "DPA0001: Memory allocation issues")]
             public Keys GenerateKeys(BigInteger message)
             {
                 var keys = new Keys();
@@ -36,6 +38,7 @@ namespace Benaloh
                         && BigInteger.GreatestCommonDivisor(keys.r, q - 1) == 1)
                         break;
                 }
+                
                 while (true)
                 {
                     var pow = BigInteger.Divide(keys.phi, keys.r);
